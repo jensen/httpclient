@@ -1,9 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import useRequestList from "hooks/use-request-list";
-import Header from "components/header";
-import Requests from "components/requests";
-import Response from "components/response";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import useRequestList from 'hooks/use-request-list';
+import Header from 'components/header';
+import Requests from 'components/requests';
+import Response from 'components/response';
+import { RequestProvider } from 'context/request';
+import useLocalStorage from 'hooks/use-local-storage';
 
 const ApplicationContainer = styled.main`
   display: flex;
@@ -12,31 +14,34 @@ const ApplicationContainer = styled.main`
 `;
 
 const Application = () => {
+  const [host, setHost] = useState('http://localhost:3000');
   const {
-    updateHost,
+    requests,
     addRequest,
     updateRequest,
     removeRequest,
-    addBodyData,
-    updateBodyData,
-    removeBodyData,
-    state,
   } = useRequestList();
 
+  useLocalStorage('host', host, setHost);
+
   return (
-    <ApplicationContainer>
-      <Header updateHost={updateHost} host={state.host} />
-      <Requests
-        addRequest={addRequest}
-        updateRequest={updateRequest}
-        removeRequest={removeRequest}
-        addBodyData={addBodyData}
-        updateBodyData={updateBodyData}
-        removeBodyData={removeBodyData}
-        requests={state.requests}
-      />
-      <Response body={"{}"} status="201 Created" duration="329ms" size="739B" />
-    </ApplicationContainer>
+    <RequestProvider host={host}>
+      <ApplicationContainer>
+        <Header updateHost={setHost} host={host} />
+        <Requests
+          addRequest={addRequest}
+          updateRequest={updateRequest}
+          removeRequest={removeRequest}
+          requests={requests}
+        />
+        <Response
+          body={'{}'}
+          status="201 Created"
+          duration="329ms"
+          size="739B"
+        />
+      </ApplicationContainer>
+    </RequestProvider>
   );
 };
 

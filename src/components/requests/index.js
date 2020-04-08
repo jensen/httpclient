@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import { breakWidth } from "css/vars";
-import { AddMethod } from "components/request/method";
-import Request from "components/request";
+import React from 'react';
+import styled from 'styled-components';
+import { breakWidth } from 'css/vars';
+import { AddMethod } from 'components/request/method';
+import Request from 'components/request';
 
 const RequestsContainer = styled.section`
   flex-grow: 1;
@@ -16,31 +16,19 @@ const RequestsContainer = styled.section`
   }
 `;
 
-const Requests = ({
-  requests,
-  addRequest,
-  updateRequest,
-  removeRequest,
-  addBodyData,
-  updateBodyData,
-  removeBodyData,
-}) => {
-  return (
-    <RequestsContainer>
-      {requests.map((request) => (
-        <Request
-          key={request.id}
-          request={request}
-          addBodyData={addBodyData}
-          updateBodyData={updateBodyData}
-          removeBodyData={removeBodyData}
-          updateRequest={updateRequest}
-          removeRequest={removeRequest}
-        />
-      ))}
-      <AddMethod addRequest={addRequest} />
-    </RequestsContainer>
-  );
-};
+const Requests = ({ requests, addRequest, updateRequest, removeRequest }) => (
+  <RequestsContainer>
+    {requests.map((request) => (
+      <Request
+        key={request.id}
+        id={request.id}
+        method={request.method}
+        setMethod={(method) => updateRequest(request.id, method)}
+        removeRequest={() => removeRequest(request.id)}
+      />
+    ))}
+    <AddMethod addRequest={addRequest} />
+  </RequestsContainer>
+);
 
-export default Requests;
+export default React.memo(Requests);

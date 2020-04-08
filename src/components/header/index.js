@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import Input from "components/input";
-import withTargetValue from "utils/with-target-value";
+import React from 'react';
+import styled from 'styled-components';
+import Input from 'components/input';
+import withTargetValue from 'utils/with-target-value';
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -18,13 +18,11 @@ const Logo = styled.img`
   margin-right: 1rem;
 `;
 
-const Header = ({ host, updateHost }) => {
-  return (
-    <HeaderContainer>
-      <Logo src="/images/logo.png" alt="Logo" />
-      <Input label="HOST" value={host} onChange={withTargetValue(updateHost)} />
-    </HeaderContainer>
-  );
-};
+const Header = ({ host, updateHost }) => (
+  <HeaderContainer>
+    <Logo src="/images/logo.png" alt="Logo" />
+    <Input label="HOST" value={host} onChange={withTargetValue(updateHost)} />
+  </HeaderContainer>
+);
 
 export default Header;

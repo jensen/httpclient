@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import { StatusIcon, TimeIcon, DataIcon } from "components/icons";
-import { colors } from "css/vars";
+import React from 'react';
+import styled from 'styled-components';
+import { StatusIcon, TimeIcon, DataIcon } from 'components/icons';
+import { colors } from 'css/vars';
 
 const ResponseContainer = styled.footer`
   display: flex;
@@ -16,7 +16,7 @@ const BodyContainer = styled.div`
 `;
 
 const Body = styled.div`
-  font-family: "Ubuntu Mono", monospace;
+  font-family: 'Ubuntu Mono', monospace;
   font-size: 16px;
   white-space: pre;
 `;

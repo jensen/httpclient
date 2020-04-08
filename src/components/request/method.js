@@ -1,7 +1,7 @@
-import React from "react";
-import styled, { css } from "styled-components";
-import { colors, borderRadius } from "css/vars";
-import { AddIcon, DeleteIcon, PlayIcon } from "components/icons";
+import React from 'react';
+import styled, { css } from 'styled-components';
+import { colors, borderRadius } from 'css/vars';
+import { AddIcon, DeleteIcon, PlayIcon } from 'components/icons';
 
 const MethodContainer = styled.div`
   display: flex;
@@ -77,47 +77,43 @@ const RunButton = styled(Button)`
   }
 `;
 
-const methodButtons = ["GET", "POST", "PUT", "DELETE"];
+const methodButtons = ['GET', 'POST', 'PUT', 'DELETE'];
 
-export const AddMethod = ({ addRequest }) => {
-  return (
-    <MethodAddContainer>
-      <AddButton onClick={() => addRequest("GET")}>
-        <AddIcon />
-      </AddButton>
-      <MethodList>
-        {methodButtons.map((button) => (
-          <MethodButton key={button} onClick={() => addRequest(button)}>
-            {button}
-          </MethodButton>
-        ))}
-      </MethodList>
-    </MethodAddContainer>
-  );
-};
+export const AddMethod = ({ addRequest }) => (
+  <MethodAddContainer>
+    <AddButton onClick={() => addRequest('GET')}>
+      <AddIcon />
+    </AddButton>
+    <MethodList>
+      {methodButtons.map((button) => (
+        <MethodButton key={button} onClick={() => addRequest(button)}>
+          {button}
+        </MethodButton>
+      ))}
+    </MethodList>
+  </MethodAddContainer>
+);
 
-const Method = ({ method, updateMethod, removeRequest }) => {
-  return (
-    <MethodContainer>
-      <DeleteButton onClick={removeRequest}>
-        <DeleteIcon />
-      </DeleteButton>
-      <MethodList>
-        {methodButtons.map((button) => (
-          <MethodButton
-            key={button}
-            active={method === button}
-            onClick={() => updateMethod(button)}
-          >
-            {button}
-          </MethodButton>
-        ))}
-      </MethodList>
-      <RunButton>
-        <PlayIcon />
-      </RunButton>
-    </MethodContainer>
-  );
-};
+const Method = ({ method, updateMethod, removeRequest, run }) => (
+  <MethodContainer>
+    <DeleteButton onClick={removeRequest}>
+      <DeleteIcon />
+    </DeleteButton>
+    <MethodList>
+      {methodButtons.map((button) => (
+        <MethodButton
+          key={button}
+          active={method === button}
+          onClick={() => updateMethod(button)}
+        >
+          {button}
+        </MethodButton>
+      ))}
+    </MethodList>
+    <RunButton onClick={run}>
+      <PlayIcon />
+    </RunButton>
+  </MethodContainer>
+);
 
 export default Method;

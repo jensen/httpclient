@@ -1,5 +1,5 @@
-import React from "react";
-import styled, { css } from "styled-components";
+import React from 'react';
+import styled, { css } from 'styled-components';
 
 const fullWidth = (props) =>
   props.fullWidth &&
@@ -19,13 +19,11 @@ const Field = styled.input`
   ${fullWidth}
 `;
 
-const Input = ({ label, value, onChange, fullWidth = true }) => {
-  return (
-    <LabelContainer fullWidth>
-      <Label>{label}</Label>
-      <Field fullWidth value={value} onChange={onChange} />
-    </LabelContainer>
-  );
-};
+const Input = ({ label, value, onChange, fullWidth = true }) => (
+  <LabelContainer fullWidth={fullWidth}>
+    <Label>{label}</Label>
+    <Field fullWidth={fullWidth} value={value} onChange={onChange} />
+  </LabelContainer>
+);
 
 export default Input;

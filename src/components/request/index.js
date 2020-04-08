@@ -1,7 +1,10 @@
-import React from "react";
-import styled from "styled-components";
-import Method from "./method";
-import Details from "./details";
+import React from 'react';
+import styled from 'styled-components';
+import Method from './method';
+import Path from './path';
+import BodyData from './bodydata';
+import useRequestDetails from 'hooks/use-request-details';
+import useMakeRequest from 'hooks/use-make-request';
 
 const RequestContainer = styled.div`
   display: flex;
@@ -11,30 +14,44 @@ const RequestContainer = styled.div`
   margin-bottom: 2rem;
 `;
 
-const Request = ({
-  request,
-  addBodyData,
-  updateBodyData,
-  removeBodyData,
-  updateRequest,
-  removeRequest,
-}) => {
+const DetailsContainer = styled.div`
+  background-color: #f5f6f8;
+  padding: 1rem 1rem;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  border-top: 2px solid #e3e3e3;
+`;
+
+const Request = ({ id, method, setMethod, removeRequest }) => {
+  const {
+    path,
+    setPath,
+    bodydata,
+    addBodyData,
+    updateBodyData,
+    removeBodyData,
+  } = useRequestDetails(id);
+
+  const run = useMakeRequest({ path, bodydata });
+
   return (
     <RequestContainer>
       <Method
-        method={request.method}
-        updateMethod={(method) => updateRequest({ ...request, method })}
-        removeRequest={() => removeRequest(request)}
+        method={method}
+        updateMethod={setMethod}
+        removeRequest={removeRequest}
+        run={run}
       />
-      <Details
-        path={request.path}
-        data={request.data}
-        updatePath={(path) => updateRequest({ ...request, path })}
-        addBodyData={() => addBodyData(request.id)}
-        updateBodyData={(data) => updateBodyData(request.id, data)}
-        removeBodyData={(id) => removeBodyData(request.id, id)}
-        showBodyData={["POST", "PUT"].includes(request.method)}
-      />
+      <DetailsContainer>
+        <Path path={path} updatePath={setPath} />
+        <BodyData
+          bodydata={bodydata}
+          addBodyData={addBodyData}
+          updateBodyData={updateBodyData}
+          removeBodyData={removeBodyData}
+          showBodyData={['POST', 'PUT'].includes(method)}
+        />
+      </DetailsContainer>
     </RequestContainer>
   );
 };

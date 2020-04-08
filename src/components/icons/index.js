@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-const defaultFill = "#fff";
+const defaultFill = '#fff';
 
 const Icon = ({ children }) => (
   <svg

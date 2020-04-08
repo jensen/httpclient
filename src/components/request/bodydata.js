@@ -1,10 +1,10 @@
-import React from "react";
-import styled from "styled-components";
-import { colors } from "css/vars";
-import { AddIcon, DeleteIcon } from "components/icons";
-import { Row, Column } from "components/grid";
-import Input from "components/input";
-import withTargetValue from "utils/with-target-value";
+import React from 'react';
+import styled from 'styled-components';
+import { colors } from 'css/vars';
+import { AddIcon, DeleteIcon } from 'components/icons';
+import { Row, Column } from 'components/grid';
+import Input from 'components/input';
+import withTargetValue from 'utils/with-target-value';
 
 const Button = styled.button`
   display: flex;
@@ -24,17 +24,28 @@ const AddButton = styled(Button)`
   margin-top: 0.5rem;
 `;
 
-const BodyData = ({ data, addBodyData, updateBodyData, removeBodyData }) => {
-  return (
-    <>
-      {data.map(({ id, key, value }) => (
+const BodyContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const BodyData = ({
+  bodydata,
+  addBodyData,
+  updateBodyData,
+  removeBodyData,
+  showBodyData,
+}) =>
+  showBodyData && (
+    <BodyContainer>
+      {bodydata.map(({ id, key, value }) => (
         <Row key={id}>
           <Column>
             <Input
               label="KEY"
               value={key}
               onChange={withTargetValue((v) =>
-                updateBodyData({ id, value, key: v })
+                updateBodyData({ id, value, key: v }),
               )}
             />
           </Column>
@@ -43,7 +54,7 @@ const BodyData = ({ data, addBodyData, updateBodyData, removeBodyData }) => {
               label="VALUE"
               value={value}
               onChange={withTargetValue((v) =>
-                updateBodyData({ id, key, value: v })
+                updateBodyData({ id, key, value: v }),
               )}
             />
           </Column>
@@ -61,8 +72,7 @@ const BodyData = ({ data, addBodyData, updateBodyData, removeBodyData }) => {
           </AddButton>
         </Column>
       </Row>
-    </>
+    </BodyContainer>
   );
-};
 
 export default BodyData;

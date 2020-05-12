@@ -15,6 +15,13 @@ const ApplicationContainer = styled.main`
 
 const Application = () => {
   const [host, setHost] = useState('http://localhost:3000');
+  const [response, setResponse] = useState({
+    body: '',
+    duration: null,
+    status: null,
+    size: null,
+  });
+
   const {
     requests,
     addRequest,
@@ -25,7 +32,7 @@ const Application = () => {
   useLocalStorage('host', host, setHost);
 
   return (
-    <RequestProvider host={host}>
+    <RequestProvider host={host} setResponse={setResponse}>
       <ApplicationContainer>
         <Header updateHost={setHost} host={host} />
         <Requests
@@ -35,10 +42,10 @@ const Application = () => {
           requests={requests}
         />
         <Response
-          body={'{}'}
-          status="201 Created"
-          duration="329ms"
-          size="739B"
+          body={response.body}
+          status={response.status}
+          duration={response.duration}
+          size={response.size}
         />
       </ApplicationContainer>
     </RequestProvider>

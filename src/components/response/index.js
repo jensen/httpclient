@@ -16,9 +16,11 @@ const BodyContainer = styled.div`
 `;
 
 const Body = styled.div`
+  overflow: auto;
   font-family: 'Ubuntu Mono', monospace;
   font-size: 16px;
   white-space: pre;
+  max-height: 400px;
 `;
 
 const Status = styled.div`
@@ -60,7 +62,7 @@ const Response = ({ body, status, duration, size }) => {
   return (
     <ResponseContainer>
       <BodyContainer>
-        {body ? <Empty>Make a request.</Empty> : <Body />}
+        {body ? <Body>{body}</Body> : <Empty>Make a request.</Empty>}
       </BodyContainer>
       <Status>
         <StatusPair>
